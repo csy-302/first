@@ -21,4 +21,4 @@ songs = soup.select("tr.lst50, tr.lst100")  # 멜론 1~100위
 for idx, song in enumerate(songs, start=1):
     title = song.select_one("div.ellipsis.rank01 a").text.strip()  # 노래 제목
     artist = song.select_one("div.ellipsis.rank02 a").text.strip()  # 가수명
-    print(f"{idx}. {title} - {artist}")
+    print(f"TOP {idx}. {title} - {artist}")

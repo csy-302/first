@@ -52,14 +52,23 @@ if n == "1":
 # 멜론 50 출력
 elif n == "2":
     print("멜론 50")
-# ...
+    #수집한 데이터 출력
+    for i in range(50):
+         print(f"{songs[i][0]}. {songs[i][1]} - {songs[i][2]}")
+# 만약에 3를 입력하면
+# 멜론 10 출력
 elif n == "3":
     print("멜론 10")
-elif n == "4":
+    for i in range(10):
+         print(f"{songs[i][0]}. {songs[i][1]} - {songs[i][2]}")
+# 만약에 4를 입력하면
+# AI 추천곡 출력
     print("AI 추천곡")
     #랜덤 1곡 추천
     ai_song = random.choice(songs)
     print(f"추천곡은 {ai_song[1]} - {ai_song[2]} 입니다.") 
+# 만약에 5를 입력하면
+# 가수 이름 검색 출력
 elif n == "5":
     print("가수 이름 검색")
 # 5를 입력하면 가수 이름 검색할 수 있게 입력창이 또 나와야 함

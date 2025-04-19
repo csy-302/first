@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 import random
-import csv
 
 # 멜론 차트 URL (2025년 기준 최신 URL이 다를 수 있음)
 url = "https://www.melon.com/chart/index.htm"
@@ -47,6 +46,7 @@ b = "<멜론 차트 TOP 50곡>"
 c = "<멜론 차트 TOP 10곡>"
 d = "<AI 추천 노래>"
 e = "<가수 이름 검색>"
+f = "<파일에 저장>"
 
 # 메뉴선택(숫자입력)
 n = input("메뉴선택(숫자입력): ")
@@ -55,7 +55,7 @@ print(f"당신이 입력한 값은? {n}")
 # 만약에 1을 입력하면
 # 멜론 100 출력
 if n == "1":
-    print("멜론 100")
+    print(a)
     #수집한 데이터 출력
     for i in range(100):
          print(f"{songs[i][0]}. {songs[i][1]} - {songs[i][2]}")
@@ -63,7 +63,7 @@ if n == "1":
 # 만약에 2를 입력하면
 # 멜론 50 출력
 elif n == "2":
-    print("멜론 50")
+    print(b)
     #수집한 데이터 출력
     for i in range(50):
          print(f"{songs[i][0]}. {songs[i][1]} - {songs[i][2]}")
@@ -71,13 +71,14 @@ elif n == "2":
 # 만약에 3를 입력하면
 # 멜론 10 출력
 elif n == "3":
-    print("멜론 10")
+    print(c)
     for i in range(10):
          print(f"{songs[i][0]}. {songs[i][1]} - {songs[i][2]}")
 
 # 만약에 4를 입력하면
 # AI 추천곡 출력
-    print("AI 추천곡")
+elif n == "4":
+    print(d)
     #랜덤 1곡 추천
     ai_song = random.choice(songs)
     print(f"추천곡은 {ai_song[1]} - {ai_song[2]} 입니다.") 
@@ -85,12 +86,8 @@ elif n == "3":
 # 만약에 5를 입력하면
 # 가수 이름 검색 출력
 elif n == "5":
-    print("가수 이름 검색")
-    artist_name = input("가수 이름: ")
-# 5를 입력하면 가수 이름 검색할 수 있게 입력창이 또 나와야 함
-# 이름을 입력하면 해당 가수 이름의 노래 리스트가 출력
-elif n == "5":
     print(e)
+    print("가수 이름 검색")
     r = input("가수 이름: ")
     print(f"[<{r}>의 노래 검색]")
 
@@ -115,14 +112,14 @@ elif n == "5":
 
 # 만약에 6을 입력하면
 # 파일에 저장
-if n == "6":
-    print("파일에 저장")
-    
-    data_to_write = [
+elif n == "6":
+    import csv
+
+data_to_write = [
     ['순위', '제목', '가수'],
-    ['1', 제목, '가수'],
-    ['2', 제목, '가수'],
-    ['3', 제목, '가수']
+    [1, '노래', '가수'],
+    [2, '노래', '가수'],
+    [3, '노래', '가수']
 ]
 file_path = 'music.csv'
 try:
@@ -132,5 +129,5 @@ try:
 
     print(f"'{file_path}' 파일 생성")
 
-except Exception as t:
-    print(f"오류 발생: {t}")
+except Exception as z:
+    print(f"오류 발생: {z}")

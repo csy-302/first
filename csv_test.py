@@ -2,9 +2,9 @@ import csv
 
 data_to_write = [
     ['순위', '제목', '가수'],
-    ['1', 제목, '가수'],
-    ['2', 제목, '가수'],
-    ['3', 제목, '가수']
+    [1, '노래', '가수'],
+    [2, '노래', '가수'],
+    [3, '노래', '가수']
 ]
 file_path = 'music.csv'
 try:
@@ -12,7 +12,7 @@ try:
         writer = csv.writer(file)
         writer.writerows(data_to_write)
 
-    print(f"'{file_path}' 파일 생성.")
+    print(f"'{file_path}' 파일 생성")
 
-except Exception as e:
-    print(f"오류 발생: {e}")
+except Exception as z:
+    print(f"오류 발생: {z}")

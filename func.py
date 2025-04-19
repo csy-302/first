@@ -109,6 +109,7 @@ def m000(a, c):
         artist = song.select_one('div.ellipsis.rank02 a').text.strip()
         print(f'{rank}위 | 제목: {title} | 가수: {artist}')
 
+
 def m_random(d):
     print(d)
     url = 'https://www.melon.com/chart/index.htm'
@@ -132,7 +133,7 @@ def m_random(d):
         random_song = random.choice(song_list)
         print(f'\n[추천 곡: {random_song[1]} | 가수: {random_song[2]}]')
 
-def m001(f):
+def m_csv(f):
     print(f)
     url = 'https://www.melon.com/chart/index.htm'
     headers = {
@@ -145,19 +146,22 @@ def m001(f):
 
         songs = soup.select('tr[data-song-no]')
         song_list = []
-    data_to_write = [
+    
+    import csv
+
+data_to_write = [
     ['순위', '제목', '가수'],
-    ['1', 제목, '가수'],
-    ['2', 제목, '가수'],
-    ['3', 제목, '가수']
-    ]
-    file_path = 'music.csv'
-      try:
-        with open(file_path, mode='w', newline='', encoding='utf-8') as file:
+    [1, '노래', '가수'],
+    [2, '노래', '가수'],
+    [3, '노래', '가수']
+]
+file_path = 'music.csv'
+try:
+    with open(file_path, mode='w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         writer.writerows(data_to_write)
 
-        print(f"'{file_path}' 파일이 생성되었습니다.")
+    print(f"'{file_path}' 파일 생성")
 
-    except Exception as e:
-        print(f"파일 쓰기 중 오류 발생: {e}")
+except Exception as z:
+    print(f"오류 발생: {z}")

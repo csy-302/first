@@ -9,4 +9,14 @@ print("5. 가수 이름 검색")
 print("6. 파일에 저장(멜론100)")
 print("===================")
 
-func.m100
+#func.m100
+
+#func.m50
+
+#func.m10
+
+#func.m_random
+
+#func.m000
+
+#func.m001

@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import random
+import csv
 
 # 멜론 차트 URL (2025년 기준 최신 URL이 다를 수 있음)
 url = "https://www.melon.com/chart/index.htm"
@@ -88,13 +89,48 @@ elif n == "5":
     artist_name = input("가수 이름: ")
 # 5를 입력하면 가수 이름 검색할 수 있게 입력창이 또 나와야 함
 # 이름을 입력하면 해당 가수 이름의 노래 리스트가 출력
+elif n == "5":
+    print(e)
+    r = input("가수 이름: ")
+    print(f"[<{r}>의 노래 검색]")
+
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, 'html.parser')
+        songs = soup.select('tr[data-song-no]')
+        found_songs = []
+
+        for song in songs:
+            artist = song.select_one('div.ellipsis.rank02 a').text.strip()
+            if s.lower() in artist.lower():
+                rank = song.select_one('span.rank').text.strip()
+                title = song.select_one('div.ellipsis.rank01 a').text.strip()
+                found_songs.append((rank, title, artist))
+
+        if found_songs:
+            print(f"[<{r}> 노래 목록]")
+            for song in found_songs:
+                print(f'{song[0]}위 | 제목: {song[1]} | 가수: {song[2]}')
+        else:
+            print(f"[불러오기 실패]")
 
 # 만약에 6을 입력하면
 # 파일에 저장
 if n == "6":
     print("파일에 저장")
-
-
-else:
-    print("1~5까지 입력하세요")
     
+    data_to_write = [
+    ['순위', '제목', '가수'],
+    ['1', 제목, '가수'],
+    ['2', 제목, '가수'],
+    ['3', 제목, '가수']
+]
+file_path = 'music.csv'
+try:
+    with open(file_path, mode='w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerows(data_to_write)
+
+    print(f"'{file_path}' 파일 생성")
+
+except Exception as t:
+    print(f"오류 발생: {t}")

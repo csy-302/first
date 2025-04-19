@@ -12,7 +12,7 @@ try:
         writer = csv.writer(file)
         writer.writerows(data_to_write)
 
-    print(f"'{file_path}' 파일이 성공적으로 생성되었습니다.")
+    print(f"'{file_path}' 파일 생성.")
 
 except Exception as e:
-    print(f"파일 쓰기 중 오류 발생: {e}")
+    print(f"오류 발생: {e}")

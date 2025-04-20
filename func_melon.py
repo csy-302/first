@@ -41,55 +41,79 @@ print("5. 가수 이름 검색")
 print("6. 파일에 저장(멜론100)")
 print("===================")
 
-a = "<멜론 차트 TOP 100곡>"
-b = "<멜론 차트 TOP 50곡>"
-c = "<멜론 차트 TOP 10곡>"
-d = "<AI 추천 노래>"
+a = "<멜론 TOP 100>"
+b = "<멜론 TOP 50>"
+c = "<멜론 TOP 10>"
+d = "<멜론 AI 추천>"
 e = "<가수 이름 검색>"
-f = "<파일에 저장>"
+f = "<파일에 저장하기>"
 
-# 메뉴선택(숫자입력)
-n = input("메뉴선택(숫자입력): ")
-print(f"당신이 입력한 값은? {n}")
-
-# 만약에 1을 입력하면
-# 멜론 100 출력
+n = input("메뉴 입력: ")
 if n == "1":
     print(a)
-    #수집한 데이터 출력
-    for i in range(100):
-         print(f"{songs[i][0]}. {songs[i][1]} - {songs[i][2]}")
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, 'html.parser')
 
-# 만약에 2를 입력하면
-# 멜론 50 출력
+    songs = soup.select('tr[data-song-no]')
+
+    for index, song in enumerate(songs):
+        if index >= 100:
+            break
+        rank = song.select_one('span.rank').text.strip()
+        title = song.select_one('div.ellipsis.rank01 a').text.strip()
+        artist = song.select_one('div.ellipsis.rank02 a').text.strip()
+        print(f'{rank}위 | 제목: {title} | 가수: {artist}')
+
 elif n == "2":
     print(b)
-    #수집한 데이터 출력
-    for i in range(50):
-         print(f"{songs[i][0]}. {songs[i][1]} - {songs[i][2]}")
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, 'html.parser')
 
-# 만약에 3를 입력하면
-# 멜론 10 출력
+    songs = soup.select('tr[data-song-no]')
+
+    for index, song in enumerate(songs):
+        if index >= 50:
+            break
+        rank = song.select_one('span.rank').text.strip()
+        title = song.select_one('div.ellipsis.rank01 a').text.strip()
+        artist = song.select_one('div.ellipsis.rank02 a').text.strip()
+        print(f'{rank}위 | 제목: {title} | 가수: {artist}')
+
 elif n == "3":
     print(c)
-    for i in range(10):
-         print(f"{songs[i][0]}. {songs[i][1]} - {songs[i][2]}")
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, 'html.parser')
 
-# 만약에 4를 입력하면
-# AI 추천곡 출력
+    songs = soup.select('tr[data-song-no]')
+
+    for index, song in enumerate(songs):
+        if index >= 10:
+            break
+        rank = song.select_one('span.rank').text.strip()
+        title = song.select_one('div.ellipsis.rank01 a').text.strip()
+        artist = song.select_one('div.ellipsis.rank02 a').text.strip()
+        print(f'{rank}위 | 제목: {title} | 가수: {artist}')
+
 elif n == "4":
     print(d)
-    #랜덤 1곡 추천
-    ai_song = random.choice(songs)
-    print(f"추천곡은 {ai_song[1]} - {ai_song[2]} 입니다.") 
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, 'html.parser')
 
-# 만약에 5를 입력하면
-# 가수 이름 검색 출력
+        songs = soup.select('tr[data-song-no]')
+        song_list = []
+
+        for song in songs:
+            rank = song.select_one('span.rank').text.strip()
+            title = song.select_one('div.ellipsis.rank01 a').text.strip()
+            artist = song.select_one('div.ellipsis.rank02 a').text.strip()
+            song_list.append((rank, title, artist))
+
+        random_song = random.choice(song_list)
+        print(f'\n[추천 곡: {random_song[1]} | 가수: {random_song[2]}]')
+
 elif n == "5":
     print(e)
-    print("가수 이름 검색")
-    r = input("가수 이름: ")
-    print(f"[<{r}>의 노래 검색]")
+    s = input("가수 이름: ")
 
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -104,30 +128,6 @@ elif n == "5":
                 found_songs.append((rank, title, artist))
 
         if found_songs:
-            print(f"[<{r}> 노래 목록]")
+            print(f"[<{s}> 노래 목록.]")
             for song in found_songs:
                 print(f'{song[0]}위 | 제목: {song[1]} | 가수: {song[2]}')
-        else:
-            print(f"[불러오기 실패]")
-
-# 만약에 6을 입력하면
-# 파일에 저장
-elif n == "6":
-    import csv
-
-data_to_write = [
-    ['순위', '제목', '가수'],
-    [1, '노래', '가수'],
-    [2, '노래', '가수'],
-    [3, '노래', '가수']
-]
-file_path = 'music.csv'
-try:
-    with open(file_path, mode='w', newline='', encoding='utf-8') as file:
-        writer = csv.writer(file)
-        writer.writerows(data_to_write)
-
-    print(f"'{file_path}' 파일 생성")
-
-except Exception as z:
-    print(f"오류 발생: {z}")
